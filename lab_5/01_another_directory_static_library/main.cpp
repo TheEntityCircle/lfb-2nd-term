@@ -1,12 +1,15 @@
 #include <iostream>
-#include "sum.h"
-#include "mul.h"
+#include "goodbye.h"
+#include "anatoly.h"
+#include "cherdenko.h"
 
 using std::cout;
 using std::endl;
 
 int main()
 {
-    cout << sum(40, 2) << " " << mul(6, 7) << endl;
+    goodbye(3);
+    anatoly(1);
+    cherdenko(1);
     return 0;
 }
