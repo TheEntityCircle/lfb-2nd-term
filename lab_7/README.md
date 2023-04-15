@@ -42,8 +42,8 @@ contrib/download_prerequisites
 sudo apt install flex
 mkdir build
 cd build/
-../configure -v --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --prefix=/usr/local/gcc-12.2.0 --enable-checking=release --enable-languages=c,c++,fortran --disable-multilib --program-suffix=-12.2
-make -j 6
+../configure -v --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --prefix=/usr/local/gcc-12.2.0 --enable-checking=release --enable-languages=c,c++,fortran --program-suffix=-12.2
+make -j "$(nproc)"
 sudo make install-strip
 ```
 
@@ -54,9 +54,11 @@ sudo make install-strip
 
 Давайте немного про команды, которые могут быть непонятны:
 
-```contrib/download_prerequisites``` - внезапно, это запуск бинарника из того архива, который вы скачали и распаковали в папку.
+```contrib/download_prerequisites``` - это запуск скрипта из того архива, который вы скачали и распаковали в папку.
 Он за вас устанавливает недостающие пакеты, которые нужны компилятору для сборки... компилятора.
 Только flex просят руками поставить (по крайней мере, для Ubuntu).
+Если вы прошарились в скриптах и хотите писать многоплатформенные приложения, можно почитать и поразбирать.
+Но не обязательно.
 
 ```../configure``` - аналог cmake, генерирует вам Makefile.
 Многие пакеты используют его, и как пользователь вы разницы особо не заметите. 
@@ -98,9 +100,9 @@ sudo make install-strip
 ```--enable-languages=c,c++,fortran``` - *и вот, мы коварно заставили вас поставить себе фортран.*
 Просто включаете те языки, которые вам нужны - из интересного, там есть еще Ada, D и Go.
 
-```--disable-multilib``` - опять же, это про разные архитектуры. Если они не нужны - ставим disable. 
-
 ```--program-suffix=-12.2``` - это чтобы все компиляторы (в смысле под ту стопку языков, которую вы написали выше) были с удобным суффиксом и отличались от обычных системных.
+
+```make -j "$(nproc)"``` - количество процессоров можно определять не только вручную, но и с помощью системной переменной.
 
 И последняя команда:
 
@@ -174,8 +176,6 @@ sudo make altinstall
 
 Флаг --prefix работает так же, как для компилятора gcc.
 И у остальных флагов та же идея - настроить интерпретатор под свои нужды, полный список тут: https://docs.python.org/3/using/configure.html
-
-```sudo make -j "$(nproc)"``` - количество процессоров можно определять не только вручную, но и с помощью системной переменной. 
 
 ```sudo make altinstall``` - у питона есть разные варианты установки. Можете набрать ```sudo make``` и понажимать Tab, он вам покажет все варианты. 
 
