@@ -200,7 +200,7 @@ endif()
 
 ```
 CMake Error at /usr/share/cmake-3.16/Modules/FindPackageHandleStandardArgs.cmake:146 (message):
-  Could NOT find Curses (missing: CURSES\_LIBRARY CURSES\_INCLUDE\_PATH)
+  Could NOT find Curses (missing: CURSES_LIBRARY CURSES_INCLUDE_PATH)
 ```
 
 *Это важный момент. Такую ошибку вам придется видеть еще много раз. Даже так -* ***МНОГО РАЗ***.

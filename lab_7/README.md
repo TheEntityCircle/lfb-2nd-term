@@ -47,7 +47,7 @@ contrib/download_prerequisites
 sudo apt install flex
 mkdir build
 cd build/
-../configure -v --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --prefix=/usr/local/gcc-12.2.0 --enable-checking=release --enable-languages=c,c++,fortran --program-suffix=-12.2
+../configure -v --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --prefix=/usr/local/gcc-12.2.0 --enable-checking=release --enable-languages=c,c++,fortran --program-suffix=-12.2 --disable-multilib
 make -j "$(nproc)"
 sudo make install-strip
 ```
@@ -79,7 +79,8 @@ sudo make install-strip
 Запустили одну команду, получили Makefile, дальше как обычно. 
 *Если смотреть под капот, то сам configure - это просто bash скрипт.*
 *Можете сами открыть его текстовым редактором, там прям в первой строке будет написано, что это bash скрипт.*
-*Обычно они выдают справку по флагу help: * ```../configure --help```
+*Обычно они выдают справку по флагу help:* 
+```../configure --help```
 *Помимо базового синтаксиса, там еще используют язык макросов m4.*
 *Скорее всего, по жизни вам будет достаточно cmake, но если вдруг придется работать над проектом, в котором уже configure, и коллеги не хотят переезжать - чтож.*
 *Если вы поняли, как работает cmake, то и configure по гуглу освоите.*
@@ -116,6 +117,12 @@ sudo make install-strip
 Просто включаете те языки, которые вам нужны - из интересного, там есть еще Ada, D и Go.
 
 ```--program-suffix=-12.2``` - это чтобы все компиляторы (в смысле под ту стопку языков, которую вы написали выше) были с удобным суффиксом и отличались от обычных системных.
+
+```--disable-multilib``` - отключает сборку на несколько архитектур.
+В нашем случае это влияет, главным образом, на то, что мы отключаем поддержку 32битного кода.
+Если он вам по каким-то причинам понадобится - соберете компилятор заново с его поддержкой. 
+*Например, на Ubuntu 20.04 это делается легко, а на Ubuntu 22.04 придется доставить зависимостей.*
+А пока что вам надо посмотреть от начала до конца хотя бы один вариант сборки компилятора и последующей работы с ним, так что сейчас просто отключаем.
 
 ```make -j "$(nproc)"``` - количество процессоров можно определять не только вручную, но и с помощью системной переменной.
 
@@ -176,7 +183,7 @@ tar xf Python-3.12.0a7.tar.xz
 cd Python-3.12.0a7/
 mkdir build
 cd build
-sudo CC=/usr/local/gcc-12.2.0/bin/gcc-12.2  CXX=/usr/local/gcc-12.2.0/bin/g++-12.2 ../configure --prefix=/opt/python/3.12.0a7/ --enable-optimizations
+sudo CC=/usr/local/gcc-12.2.0/bin/gcc-12.2  CXX=/usr/local/gcc-12.2.0/bin/g++-12.2 ../configure --prefix=/opt/python/3.12.0a7/ --enable-optimizations 
 sudo make -j "$(nproc)"
 sudo make altinstall
 ```
