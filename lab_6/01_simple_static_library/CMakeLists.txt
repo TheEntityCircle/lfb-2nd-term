@@ -6,7 +6,7 @@ set(SOURCE_EXE main.cpp) # список исходников для исполн
 
 set(SOURCE_LIB goodbye.cpp anatoly.cpp cherdenko.cpp) # список исходников для библиотеки
 
-add_library(gac SHARED ${SOURCE_LIB}) # создание статической библиотеки с именем gac
+add_library(gac STATIC ${SOURCE_LIB}) # создание статической библиотеки с именем gac
 
 add_executable(main ${SOURCE_EXE}) # создание исполняемого файла с именем main
 
