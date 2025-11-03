@@ -79,13 +79,13 @@ install:
 uninstall:
         rm /usr/local/bin/hello_there_general_kenobi
 
-general.o: ../gk/general.cpp ../gk/general.hpp
+general.o: ../01_gk/general.cpp ../01_gk/general.hpp
         g++ -c ../gk/general.cpp -o general.o
 
-kenobi.o: ../gk/kenobi.cpp ../gk/kenobi.hpp
+kenobi.o: ../01_gk/kenobi.cpp ../01_gk/kenobi.hpp
         g++ -c ../gk/kenobi.cpp -o kenobi.o
 
-hello_there_general_kenobi: main.cpp general.o kenobi.o ../gk/general.hpp ../gk/kenobi.hpp
+hello_there_general_kenobi: main.cpp general.o kenobi.o ../01_gk/general.hpp ../01_gk/kenobi.hpp
         g++ main.cpp general.o kenobi.o -o hello_there_general_kenobi
 ```
 Эти механики включаются через *фиктивные цели* - все, что перечислено в первой строчке после .PHONY. 
